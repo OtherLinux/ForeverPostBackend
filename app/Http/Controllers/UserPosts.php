@@ -51,11 +51,11 @@ class UserPosts extends Controller
         $dspName = $request->input("displayName");
         $msgCnt = $request->input("message");
 
-        if (!($dspName == "" || $msgCnt == "")) {
+        if (!($dspName == "" || $msgCnt == "") && !(strlen($dspName) > 32 || strlen($msgCnt) > 256) && (gettype($dspName) == "string" && gettype($msgCnt) == "string")) {
 
             $post = new Post;
-            $post->display_name = $dspName;
-            $post->message = $msgCnt;
+            $post->display_name = strip_tags($dspName);
+            $post->message = strip_tags($msgCnt);
             $post->nsfw = false;
             $post->hidden = false;
             $post->save();
