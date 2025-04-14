@@ -48,8 +48,8 @@ class UserPosts extends Controller
 
     public function CreateMessage(Request $request)
     {
-        $dspName = $request->input("displayName");
-        $msgCnt = $request->input("message");
+        $dspName = strip_tags($request->input("displayName"));
+        $msgCnt = strip_tags($request->input("message"));
 
         if (!($dspName == "" || $msgCnt == "") && !(strlen($dspName) > 32 || strlen($msgCnt) > 256) && (gettype($dspName) == "string" && gettype($msgCnt) == "string")) {
 
